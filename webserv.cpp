@@ -22,17 +22,22 @@ class Server
 	private:
 		int socket_fd, connect_fd;
 		struct sockaddr_in address;
-		const int addrlen;
+		int addrlen;
 
 	public:
 		Server();
 		~Server();
-		
-		int getSocket();
-		int getConnection();
-		struct sockaddr_in getAddress();
-		int getAddrlen();
+
+		int					getSocket();
+		int					getConnection();
+		struct sockaddr_in	&getAddress();
+		int					&getAddrlen();
 };
+
+Server::Server():addrlen(sizeof(address))
+{
+	
+}
 
 int main(void)
 {
