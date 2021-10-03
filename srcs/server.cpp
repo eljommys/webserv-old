@@ -12,12 +12,26 @@
 
 #include "webserv.hpp"
 
-Server::Server():addrlen(sizeof(address)), home("./"){}
-
-int	Server::setHome(std::string home)
+static int parse_conf(std::ifstream &conf)
 {
-	this->home = home;
+	std::cout << conf.rdbuf() << std::endl;
 	return (EXIT_SUCCESS);
+}
+
+Server::Server():addrlen(sizeof(address))
+{
+	std::ifstream	conf("webserv.conf");
+
+	//parse_conf(conf, *this);
+	//parse_conf(conf);
+}
+
+int	Server::setHome(std::string route_conf)
+{
+	std::ifstream	conf(route_conf.c_str());
+
+	//return (parse_conf(conf, *this));
+	return (parse_conf(conf));
 }
 
 int Server::prepare()
@@ -31,7 +45,7 @@ int Server::prepare()
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
 	address.sin_port = htons( PORT );
-	for (int i = 0; i < sizeof(address.sin_zero); i++)
+	for (int i = 0; i < (int)sizeof(address.sin_zero); i++)
 		address.sin_zero[i] = 0;
 
 	if (bind(server_fd, (struct sockaddr *)&(address), sizeof(address)) < 0)
@@ -60,6 +74,7 @@ static struct Petition	parser(std::string buffer)
 	std::cout << "type = " << petition.type << std::endl;
 	std::cout << "route = \"" << petition.route << "\"" << std::endl;
 
+	exit(0);
 	return (petition);
 }
 

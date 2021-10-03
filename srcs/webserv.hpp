@@ -16,10 +16,12 @@
 # include <sys/socket.h>
 # include <netinet/in.h>
 # include <iostream>
+# include <fstream>
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <poll.h>
+//# include "parser.hpp"
 
 # define PORT		8080
 # define	GET		0
@@ -32,6 +34,14 @@ struct Petition
 	std::string	route;
 };
 
+struct Config
+{
+	std::string	home;
+	std::string	user;
+	std::string	index;
+	int			*ports;
+};
+
 class Server
 {
 	private:
@@ -40,7 +50,7 @@ class Server
 		struct sockaddr_in	address;
 		int					addrlen;
 		struct Petition		petition;
-		std::string			home;
+		struct Config		config;
 
 	public:
 		Server();
