@@ -1,8 +1,8 @@
 ROOT = ./srcs/
 
 NAME = webserv
-CC = g++
-CFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic
+CXX = g++
+CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic
 
 SRC =	$(ROOT)webserv.cpp \
 		$(ROOT)server.cpp
@@ -16,7 +16,7 @@ MSG = Default commit message
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	g++ $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
 
 clean:
 	rm -rf $(NAME)
