@@ -10,11 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_HPP
-# define PARSER_HPP
+#pragma once
 
-# include "webserv.hpp"
+#include "webserv.hpp"
 
-int parser(std::ifstream &conf, Server &server);
-
-#endif
+struct Petition	parser(std::string buffer); //main function

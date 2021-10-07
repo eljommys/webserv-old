@@ -10,18 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WEBSERV_HPP
-# define WEBSERV_HPP
+#pragma once
 
 # include <sys/socket.h>
 # include <netinet/in.h>
 # include <iostream>
 # include <fstream>
+# include <sstream>
+# include <cstdio>
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <poll.h>
-//# include "parser.hpp"
+# include "parser.hpp"
 
 # define PORT		8080
 # define	GET		0
@@ -59,5 +60,3 @@ class Server
 		int	prepare();
 		int	exe();
 };
-
-#endif

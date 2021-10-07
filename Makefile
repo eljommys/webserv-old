@@ -5,7 +5,8 @@ CXX = g++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic
 
 SRC =	$(ROOT)webserv.cpp \
-		$(ROOT)server.cpp
+		$(ROOT)server.cpp \
+		$(ROOT)parser.cpp
 
 OBJ =	$(SRC:.cpp=.o)
 

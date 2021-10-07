@@ -61,23 +61,6 @@ int Server::prepare()
 	return (EXIT_SUCCESS);
 }
 
-static struct Petition	parser(std::string buffer)
-{
-	struct Petition	petition;
-
-	std::string		types[] = {"GET", "POST", "DELETE"};
-	std::string		method = buffer.substr(0, buffer.find_first_of(' '));
-	for (petition.type = GET; method != types[petition.type] && petition.type < 3; petition.type++);
-
-	petition.route = buffer.substr(buffer.find_first_of(' ') + 1, buffer.find(" HTTP") - buffer.find_first_of(' ') - 1);
-
-	std::cout << "type = " << petition.type << std::endl;
-	std::cout << "route = \"" << petition.route << "\"" << std::endl;
-
-	exit(0);
-	return (petition);
-}
-
 int	Server::exe()
 {
 	while (true)
@@ -98,6 +81,22 @@ int	Server::exe()
 			petition = parser(buffer);
 		if (petition.type < 0)
 			return (EXIT_FAILURE);
+		std::cout << "Returning index.html" << std::endl;
+
+		char buff[10000];
+		FILE *index = fopen("../www/index.html", "r");
+
+		fread(buff, sizeof(char), 10000, index);
+		std::string text(buff);
+		std::cout << text << std::endl;			//================segfault
+		//std::ifstream html("../www/index.html");
+
+		//std::cout << html.rdbuf() << std::endl;
+		//std::stringstream text;
+
+		//text << html.rdbuf();
+		//write(1, text.str().c_str(), text.str().size());
+		//send(connect_fd.fd, text.str().c_str(), text.str().size(), 0);
 		}
 	}
 	return (EXIT_SUCCESS);
