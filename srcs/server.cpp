@@ -68,9 +68,10 @@ int	Server::exe()
 		if ((connect_fd.fd = accept(server_fd, (struct sockaddr *)&(address), (socklen_t *)&(addrlen))) < 0)
 		{
 			std::cerr << "Connection refused" << std::endl;
-			return (EXIT_FAILURE);
+			//return (EXIT_FAILURE);
 		}
-		std::cout << "Connected" << std::endl << std::endl;
+		else
+			std::cout << "Connected" << std::endl << std::endl;
 		char buffer[30000] = {0};
 		poll(&connect_fd, 20, 2000);
 
@@ -83,19 +84,17 @@ int	Server::exe()
 			return (EXIT_FAILURE);
 		std::cout << "Returning index.html" << std::endl;
 
-		char buff[10000];
-		FILE *index = fopen("../www/index.html", "r");
+		std::ifstream html("./www/index.html");
+		std::cout << html.rdbuf() << std::endl;
 
-		fread(buff, sizeof(char), 10000, index);
-		std::string text(buff);
-		std::cout << text << std::endl;			//================segfault
-		//std::ifstream html("../www/index.html");
+		std::stringstream text;
+		text << html.rdbuf();
 
-		//std::cout << html.rdbuf() << std::endl;
+		//send(connect_fd.fd, text.str().c_str(), text.str().size(), 0);
 		//std::stringstream text;
 
 		//text << html.rdbuf();
-		//write(1, text.str().c_str(), text.str().size());
+		write(connect_fd.fd, text.str().c_str(), text.str().size());
 		//send(connect_fd.fd, text.str().c_str(), text.str().size(), 0);
 		}
 	}
