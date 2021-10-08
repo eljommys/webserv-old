@@ -82,7 +82,7 @@ int	Server::exe()
 			petition = parser(buffer);
 		if (petition.type < 0)
 			return (EXIT_FAILURE);
-		std::cout << "Returning index.html" << std::endl;
+		std::cout << "Returning index.html\n" << std::endl;
 
 		std::ifstream html("./www/index.html");
 		std::cout << html.rdbuf() << std::endl;
