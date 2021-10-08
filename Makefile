@@ -27,7 +27,7 @@ fclean: clean
 
 re: fclean $(NAME)
 
-git:
+git: fclean
 	git add .
 	git commit -m "$(MSG)"
 	git push
