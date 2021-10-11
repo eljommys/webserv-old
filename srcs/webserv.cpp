@@ -12,19 +12,35 @@
 
 #include "webserv.hpp"
 
+Server server;
+
+void sig_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		setsockopt(server.getServer_fd(), SOL_SOCKET,SO_REUSEADDR, NULL,sizeof(int));
+		close(server.getServer_fd());
+		exit(SIGINT);
+	}
+}
+
 int main(int argc, char **argv)
 {
+	int ret;
+
 	if (argc > 2)
 	{
 		std::cout << "Error: Too many arguments!" << std::endl;
 		return (EXIT_FAILURE);
 	}
-	Server server;
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+	signal(SIGKILL, sig_handler);
 	if (argc == 2)
 		server.setHome(argv[1]);
 
-	server.prepare();
-	server.exe();
+	ret = server.prepare();
+	ret += server.exe();
 
-	return (EXIT_SUCCESS);
+	return (ret);
 }

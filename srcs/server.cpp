@@ -26,6 +26,11 @@ Server::Server():addrlen(sizeof(address))
 	//parse_conf(conf);
 }
 
+Server::~Server()
+{
+	std::cout << "Turning server off." << std::endl;
+}
+
 int	Server::setHome(std::string route_conf)
 {
 	std::ifstream	conf(route_conf.c_str());
@@ -94,9 +99,40 @@ int	Server::exe()
 		//std::stringstream text;
 
 		//text << html.rdbuf();
-		write(connect_fd.fd, text.str().c_str(), text.str().size());
+		write(connect_fd.fd, "HTTP/1.1 404 Not Found.", 23);
+		close(connect_fd.fd);
 		//send(connect_fd.fd, text.str().c_str(), text.str().size(), 0);
 		}
 	}
 	return (EXIT_SUCCESS);
+}
+
+int 				Server::getServer_fd()
+{
+	return this->server_fd;
+}
+
+pollfd				Server::getConnect_fd()
+{
+	return this->connect_fd;
+}
+
+struct sockaddr_in	Server::getAddress()
+{
+	return this->address;
+}
+
+int					Server::getAddrlen()
+{
+	return this->addrlen;
+}
+
+struct Petition		Server::getPetition()
+{
+	return this->petition;
+}
+
+struct Config		Server::getConfig()
+{
+	return this->config;
 }

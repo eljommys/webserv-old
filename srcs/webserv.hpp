@@ -55,8 +55,15 @@ class Server
 
 	public:
 		Server();
-		~Server(){}
+		~Server();
 		int	setHome(std::string home);
 		int	prepare();
 		int	exe();
+		
+		int 				getServer_fd();
+		pollfd				getConnect_fd();
+		struct sockaddr_in	getAddress();
+		int					getAddrlen();
+		struct Petition		getPetition();
+		struct Config		getConfig();
 };
