@@ -18,7 +18,6 @@ void sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		setsockopt(server.getServer_fd(), SOL_SOCKET,SO_REUSEADDR, NULL,sizeof(int));
 		close(server.getServer_fd());
 		exit(SIGINT);
 	}

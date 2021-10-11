@@ -41,11 +41,14 @@ int	Server::setHome(std::string route_conf)
 
 int Server::prepare()
 {
+	int verdad = 1;
+
 	if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 	{
 		std::cerr << "Could not open socket" << std::endl;
 		return (EXIT_FAILURE);
 	}
+	setsockopt(server_fd, SOL_SOCKET,SO_REUSEADDR, &verdad,sizeof(int));
 
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
@@ -89,19 +92,18 @@ int	Server::exe()
 			return (EXIT_FAILURE);
 		std::cout << "Returning index.html\n" << std::endl;
 
-		std::ifstream html("./www/index.html");
-		std::cout << html.rdbuf() << std::endl;
+		//std::ifstream html("./www/index.html");
+		//std::cout << html.rdbuf() << std::endl;
 
-		std::stringstream text;
-		text << html.rdbuf();
-
-		//send(connect_fd.fd, text.str().c_str(), text.str().size(), 0);
 		//std::stringstream text;
-
 		//text << html.rdbuf();
-		write(connect_fd.fd, "HTTP/1.1 404 Not Found.", 23);
-		close(connect_fd.fd);
+
+		write(connect_fd.fd, "HTTP/1.1 200 OK\n", 16);
+		write(connect_fd.fd, "Content-length: 46\n", 19);
+		write(connect_fd.fd, "Content-Type: text/html\n\n", 25);
+		write(connect_fd.fd, "<html><body><H1>Hello world</H1></body></html>",46);
 		//send(connect_fd.fd, text.str().c_str(), text.str().size(), 0);
+		close(connect_fd.fd);
 		}
 	}
 	return (EXIT_SUCCESS);
