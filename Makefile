@@ -2,7 +2,7 @@ ROOT = ./srcs/
 
 NAME = webserv
 CXX = g++
-CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic
+#CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic
 
 SRC =	$(ROOT)webserv.cpp \
 		$(ROOT)server.cpp \

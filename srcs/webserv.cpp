@@ -18,6 +18,7 @@ void sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
+		write(1, "\r", 1);
 		close(server.getServer_fd());
 		exit(SIGINT);
 	}
@@ -25,21 +26,23 @@ void sig_handler(int sig)
 
 int main(int argc, char **argv)
 {
-	int ret;
-
 	if (argc > 2)
 	{
 		std::cout << "Error: Too many arguments!" << std::endl;
 		return (EXIT_FAILURE);
 	}
+	else if (argc == 2)
+		server.setConf(argv[1]);
+
+//	Only SININT (CTRL+C) can exit cleanly from the process
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	signal(SIGKILL, sig_handler);
-	if (argc == 2)
-		server.setHome(argv[1]);
 
-	ret = server.prepare();
-	ret += server.exe();
+	while (server.prepare() == EXIT_FAILURE)
+		std::cout << "Retrying..." << std::endl;
 
-	return (ret);
+	server.exe();
+
+	return (EXIT_SUCCESS);
 }

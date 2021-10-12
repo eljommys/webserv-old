@@ -14,4 +14,5 @@
 
 #include "webserv.hpp"
 
-struct Petition	parser(std::string buffer); //main function
+struct Petition	parse_petition(std::string);
+struct Config	parse_config(const std::string &);

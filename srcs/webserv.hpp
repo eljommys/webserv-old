@@ -14,6 +14,7 @@
 
 # include <sys/socket.h>
 # include <netinet/in.h>
+# include <signal.h>
 # include <iostream>
 # include <fstream>
 # include <sstream>
@@ -29,9 +30,13 @@
 # define	POST	1
 # define	DELETE	2
 
+# define	CONNECT_NUM	1
+# define	MAX_REQUEST	5
+
 struct Petition
 {
 	int			type;
+	std::string	protocol;
 	std::string	route;
 };
 
@@ -47,7 +52,7 @@ class Server
 {
 	private:
 		int 				server_fd;
-		pollfd				connect_fd;
+		struct pollfd		connect_fd[CONNECT_NUM];
 		struct sockaddr_in	address;
 		int					addrlen;
 		struct Petition		petition;
@@ -56,14 +61,10 @@ class Server
 	public:
 		Server();
 		~Server();
-		int	setHome(std::string home);
+		int	setConf(const std::string &);
 		int	prepare();
 		int	exe();
-		
-		int 				getServer_fd();
-		pollfd				getConnect_fd();
-		struct sockaddr_in	getAddress();
-		int					getAddrlen();
-		struct Petition		getPetition();
-		struct Config		getConfig();
+
+		const int			&getServer_fd();
+		const struct pollfd	&getConnect_fd(const int &);
 };
