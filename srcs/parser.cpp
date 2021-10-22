@@ -28,3 +28,14 @@ struct Config	parse_config(const std::string &str)
 
 	return config;
 }
+
+static void show(struct Config config)
+{
+	
+}
+
+int main(void)
+{
+	struct Config config = parse_config("webserv.conf");
+
+}

@@ -40,7 +40,7 @@ int	Server::setConf(const std::string &str)
 
 	content << file.rdbuf();
 
-	//config = parse_config(content.str());
+	config = parse_config(content.str());
 	return (EXIT_SUCCESS);
 }
 
