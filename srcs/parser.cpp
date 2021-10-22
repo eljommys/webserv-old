@@ -23,19 +23,32 @@ struct Petition	parse_petition(std::string buffer)
 struct Config	parse_config(const std::string &str)
 {
 	struct Config	config;
+	std::ifstream	file_stream;
 
-	config.home = "./www";
+	try{
+		file_stream.open(str.c_str(), std::ifstream::in);
+	}catch (const std::ifstream::failure &e){
+		std::cerr << e.what();
+	}
 
 	return config;
 }
 
 static void show(struct Config config)
 {
-	
+	typedef std::vector<int>::iterator it;
+
+	std::cout << "home '" << config.home << "'" << std::endl;
+	std::cout << "user '" << config.user << "'" << std::endl;
+	std::cout << "index '" << config.index << "'" << std::endl;
+	std::cout << "ports";
+	for (it i = config.ports.begin(); i < config.ports.end(); i++)
+		std::cout << " '" << *i << "'";
+	std::cout << std::endl;
 }
 
 int main(void)
 {
 	struct Config config = parse_config("webserv.conf");
-
+	show(config);
 }

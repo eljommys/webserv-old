@@ -16,6 +16,7 @@
 # include <netinet/in.h>
 # include <signal.h>
 # include <iostream>
+# include <vector>
 # include <fstream>
 # include <sstream>
 # include <cstdio>
@@ -42,10 +43,10 @@ struct Petition
 
 struct Config
 {
-	std::string	home;
-	std::string	user;
-	std::string	index;
-	int			*ports;
+	std::string			home;
+	std::string			user;
+	std::string			index;
+	std::vector<int>	ports;
 };
 
 class Server
