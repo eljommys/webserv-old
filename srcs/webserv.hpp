@@ -17,6 +17,7 @@
 # include <signal.h>
 # include <iostream>
 # include <vector>
+# include <algorithm>
 # include <fstream>
 # include <sstream>
 # include <cstdio>
@@ -24,7 +25,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <poll.h>
-# include "parser.hpp"
+# include "parser/parser.hpp"
 
 # define	PORT	8080
 # define	GET		0
@@ -41,12 +42,27 @@ struct Petition
 	std::string	route;
 };
 
+struct Location
+{
+	std::vector<std::string>	path;
+	std::vector<std::string>	methods;
+	bool						autoindex;
+	std::vector<std::string>	index;
+};
+
+struct V_server
+{
+	int							port;
+	std::vector<std::string>	server_names;
+	struct Location				location;
+};
+
 struct Config
 {
-	std::string			home;
-	std::string			user;
-	std::string			index;
-	std::vector<int>	ports;
+	std::string					home;
+	std::string					user;
+	std::string					index;
+	std::vector<struct V_server>	servers;
 };
 
 class Server

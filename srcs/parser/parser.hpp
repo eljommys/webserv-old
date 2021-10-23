@@ -12,7 +12,7 @@
 
 #pragma once
 
-#include "webserv.hpp"
+#include "../webserv.hpp"
 
 struct Petition	parse_petition(std::string);
 struct Config	parse_config(const std::string &);
