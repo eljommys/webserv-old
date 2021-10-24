@@ -20,6 +20,7 @@
 # include <algorithm>
 # include <fstream>
 # include <sstream>
+# include <istream>
 # include <cstdio>
 # include <stdlib.h>
 # include <stdio.h>
@@ -44,24 +45,23 @@ struct Petition
 
 struct Location
 {
-	std::vector<std::string>	path;
+	std::string					path;
 	std::vector<std::string>	methods;
 	bool						autoindex;
-	std::vector<std::string>	index;
+	std::string					root;
 };
 
 struct V_server
 {
-	int							port;
-	std::vector<std::string>	server_names;
-	struct Location				location;
+	int								port;
+	std::vector<std::string>		server_names;
+	std::vector<struct Location>	location;
 };
 
 struct Config
 {
-	std::string					home;
-	std::string					user;
-	std::string					index;
+	std::string						user;
+	std::vector<std::string>		index;
 	std::vector<struct V_server>	servers;
 };
 

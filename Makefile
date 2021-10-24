@@ -35,4 +35,4 @@ git: fclean
 	git push
 
 parser:
-	$(CXX) $(ROOT)$(PARSER) $(ROOT)server.cpp -o parser
+	$(CXX) $(ROOT)parser/config.cpp $(ROOT)parser/parser.cpp $(ROOT)server.cpp -o parser

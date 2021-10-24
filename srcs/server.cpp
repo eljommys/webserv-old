@@ -83,7 +83,7 @@ static void		response(int fd, struct Petition petition, struct Config config)
 {
 	std::stringstream	rsp;
 	std::stringstream	fileroute;
-	fileroute << config.home << petition.route;
+	fileroute << config.user << petition.route;
 	std::ifstream		file(fileroute.str().c_str());
 
 	fileroute.str("");
