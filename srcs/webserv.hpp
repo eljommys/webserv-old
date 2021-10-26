@@ -62,6 +62,7 @@ struct Config
 {
 	std::string						user;
 	std::vector<std::string>		index;
+	int								max_body_size;
 	std::vector<struct V_server>	servers;
 };
 
