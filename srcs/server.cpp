@@ -106,23 +106,19 @@ int	Server::exe()
 		}
 		else
 			std::cout << "Connected" << std::endl << std::endl;
-
-		/* if (!poll(connect_fd, CONNECT_NUM, 5000))
+		
+		fcntl(connect_fd[0].fd, F_SETFL, fcntl(connect_fd[0].fd, F_GETFL, 0) | O_NONBLOCK);
+		if (!poll(connect_fd, CONNECT_NUM, 5000))
 		{
-			std::cout << "TIMEOUT!" << std::endl; // ESTO SACA TIMEOUTS SIEMPRE Y CUANDO NADIE SE CONECTE
+			std::cout << "TIMEOUT!" << std::endl;
 			continue;
-		} */
+		}
 
 //		Save client's petition in buffer and parsing it
 		recv(connect_fd[0].fd, buffer, 30000, 0);
 		std::cout << "=====================Petition=====================" << std::endl;
 		std::cout << (std::string)buffer << std::endl;
 		petition = parse_petition(buffer);
-		if (petition.type < 0)
-		{
-			std::cout << "Wrong petition format!" << std::endl;
-			continue;
-		}
 
 //		Sending server response
 		response(connect_fd[0].fd, petition, config);

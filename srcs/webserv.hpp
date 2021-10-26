@@ -15,6 +15,7 @@
 # include <sys/socket.h>
 # include <netinet/in.h>
 # include <signal.h>
+# include <fcntl.h>
 # include <iostream>
 # include <vector>
 # include <algorithm>
