@@ -85,4 +85,5 @@ class Server
 
 		const int			&getServer_fd();
 		const struct pollfd	&getConnect_fd(const int &);
+		const struct Config	&getConfig();
 };

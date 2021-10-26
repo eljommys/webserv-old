@@ -1,6 +1,6 @@
 #include "parser.hpp"
 
-static void show(struct Config config)
+void show(struct Config config)
 {
 	std::cout << "user '" << config.user << "'" << std::endl;
 	std::cout << "index ";
@@ -10,6 +10,7 @@ static void show(struct Config config)
 	std::cout << "body_size '" << config.max_body_size << "'" << std::endl;
 	for (std::vector<struct V_server>::iterator i = config.servers.begin(); i < config.servers.end(); i++)
 	{
+		std::cout << "hola" << std::endl;
 		std::cout << std::endl;
 		std::cout << "Server #" << i - config.servers.begin() << std::endl;
 		std::cout << "\tPort" << i->port << std::endl;
@@ -51,8 +52,8 @@ struct Petition	parse_petition(std::string buffer)
 	return (petition);
 }
 
-int main(void)
+/* int main(void)
 {
 	struct Config config = parse_config("webserv.conf");
 	show(config);
-}
+} */

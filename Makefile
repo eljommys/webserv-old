@@ -4,11 +4,12 @@ PARSER = parser/parser.cpp
 
 NAME = webserv
 CXX = g++
-#CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic
+CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic
 
 SRC =	$(ROOT)webserv.cpp \
 		$(ROOT)server.cpp \
-		$(ROOT)parser/parser.cpp
+		$(ROOT)parser/parser.cpp \
+		$(ROOT)parser/config.cpp
 
 OBJ =	$(SRC:.cpp=.o)
 

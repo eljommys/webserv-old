@@ -20,12 +20,7 @@ Server::Server():addrlen(sizeof(address))
 		connect_fd[i].events |= POLLIN;
 	}
 
-	std::ifstream			file("webserv.conf");
-	std::stringstream		content;
-
-	content << file.rdbuf();
-
-	config = parse_config(content.str());
+	config = parse_config("webserv.conf");
 }
 
 Server::~Server()
@@ -147,4 +142,9 @@ const int			&Server::getServer_fd()
 const struct pollfd	&Server::getConnect_fd(const int &i)
 {
 	return connect_fd[i];
+}
+
+const struct Config	&Server::getConfig()
+{
+	return config;
 }

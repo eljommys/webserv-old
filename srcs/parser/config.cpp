@@ -118,41 +118,13 @@ struct Config	parse_config(const std::string &str)
 	std::replace(text.begin(), text.end(), '\t', ' ');
 
 	std::string begin = text;
-	std::string::iterator i = text.begin();
 
 	config.user = get_value("user", text.begin().base());
 	text = get_first_block("http", text);
 	config.index = get_vector(get_value("index", text));
-	std::stringstream body_size(get_value("client_max_body_size", text));
-	body_size >> config.max_body_size;
-
-	/* std::string t_server = get_first_block("server", text);
-	int t_server_size;
-	while (t_server[0])
-	{
-		t_server_size = t_server.size();
-		struct V_server	server;
-		std::stringstream num(get_value("listen", t_server));
-		num >> server.port;
-		server.server_names = get_vector(get_value("server_name", t_server));
-		std::string t_location = get_first_block("location", t_server);
-		while (t_location[0])
-		{
-			struct Location location;
-			location.path = get_value("location", t_server);
-			location.methods = get_vector(get_value("methods", t_location));
-			location.autoindex = (get_value("autoindex", t_location) == "on") ? true : false;
-			location.root = get_value("root", t_location);
-			server.location.push_back(location);
-			t_server = (t_server.begin() + t_server.find("location") + t_location.size()).base();
-			t_location = get_first_block("location", t_server);
-		}
-		config.servers.push_back(server);
-		std::cout << "text ===================" << std::endl;
-		std::cout << text << std::endl << std::endl;
-		text = (text.begin() + text.find("server") + t_server_size + std::string("server").size()).base();
-		t_server = get_first_block("server", text);
-	} */
+	//std::stringstream body_size(get_value("client_max_body_size", text));
+	//body_size >> config.max_body_size;
+	config.max_body_size = 0;
 
 	config.servers = parse_servers(text);
 
