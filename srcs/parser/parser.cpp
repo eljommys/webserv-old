@@ -36,7 +36,7 @@ static bool file_exists(const std::string& name) {
     return f.good();
 }
 
-struct Petition	parse_petition(std::string buffer, Config config)
+struct Petition	parse_petition(std::string buffer, struct Config config)
 {
 	struct Petition	petition;
 
@@ -50,9 +50,14 @@ struct Petition	parse_petition(std::string buffer, Config config)
 	if (petition.route == "/")
 	{
 		int i;
-		for (i = 0; file_exists(config.index[i]) == false; i++);
-		if (i < config.index.size())
-			petition.route = config.index[i];
+		for (i = 0; i < (int)config.index.size() ; i++)
+		{
+			if (file_exists(std::string(config.user + "/" + config.index[i])) == true)
+			{
+				petition.route = config.user + "/" + config.index[i];
+				break;
+			}
+		}
 		//else
 			//petitition.route = config.error_file
 	}

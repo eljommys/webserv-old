@@ -74,11 +74,11 @@ int Server::prepare()
 	return (EXIT_SUCCESS);
 }
 
-static void		response(int fd, struct Petition petition, struct Config config)
+static void		response(int fd, struct Petition petition)
 {
 	std::stringstream	rsp;
 	std::stringstream	fileroute;
-	fileroute << config.user << petition.route;
+	fileroute << "./" << petition.route;
 	std::ifstream		file(fileroute.str().c_str());
 
 	fileroute.str("");
@@ -89,6 +89,7 @@ static void		response(int fd, struct Petition petition, struct Config config)
 	rsp << "Content-Type: text/html" << std::endl << std:: endl;
 	rsp << fileroute.str();
 
+	//std::cout << rsp.str() << std::endl;
 	send(fd, rsp.str().c_str(), rsp.str().size(), 0);
 }
 
@@ -118,10 +119,11 @@ int	Server::exe()
 		recv(connect_fd[0].fd, buffer, 30000, 0);
 		std::cout << "=====================Petition=====================" << std::endl;
 		std::cout << (std::string)buffer << std::endl;
-		petition = parse_petition(buffer);
+		std::cout << "==================================================" << std::endl;
+		petition = parse_petition(buffer, config);
 
 //		Sending server response
-		response(connect_fd[0].fd, petition, config);
+		response(connect_fd[0].fd, petition);
 		close(connect_fd[0].fd);
 	}
 	return (EXIT_SUCCESS);
