@@ -48,6 +48,8 @@ struct Petition	parse_petition(std::string buffer, struct Config config)
 
 	petition.route = config.user + buffer.substr(buffer.find_first_of(' ') + 1, buffer.find(" HTTP") - buffer.find_first_of(' ') - 1);
 
+	if (petition.route == config.user + "/")
+		petition.route = config.user + "/" + config.home;
 	if (petition.route[petition.route.size() - 1] == '/')
 	{
 		for (int i = 0; i < (int)config.index.size(); i++)
