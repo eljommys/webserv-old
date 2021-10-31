@@ -110,7 +110,7 @@ int	Server::exe()
 		fcntl(connect_fd[0].fd, F_SETFL, fcntl(connect_fd[0].fd, F_GETFL, 0) | O_NONBLOCK);
 		if (!poll(connect_fd, CONNECT_NUM, 5000))
 		{
-			std::cout << "TIMEOUT!" << std::endl;
+			std::cout << "TIMEOUT!" << std::endl; //REPARAR (APRENDER COMO FUNCIONAN LAS PETICIONES DE CONEXION DE VERDAD)
 			continue;
 		}
 
