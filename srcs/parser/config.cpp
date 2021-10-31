@@ -117,11 +117,12 @@ struct Config	parse_config(const std::string &str)
 	text.erase(std::remove(text.begin(), text.end(), 127), text.end());
 	std::replace(text.begin(), text.end(), '\t', ' ');
 
-	std::string begin = text;
+	//std::string begin = text;
 
 	config.user = get_value("user", text.begin().base());
 	text = get_first_block("http", text);
 	config.index = get_vector(get_value("index", text));
+	config.error_file = get_value("error", text);
 	//std::stringstream body_size(get_value("client_max_body_size", text));
 	//body_size >> config.max_body_size;
 	config.max_body_size = 0;

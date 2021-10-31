@@ -52,15 +52,17 @@ struct Petition	parse_petition(std::string buffer, struct Config config)
 		int i;
 		for (i = 0; i < (int)config.index.size() ; i++)
 		{
-			if (file_exists(std::string(config.user + "/" + config.index[i])) == true)
+			std::string fileroute = config.user + "/" + config.index[i];
+			if (file_exists(fileroute) == true)
 			{
-				petition.route = config.user + "/" + config.index[i];
+				petition.route = fileroute;
 				break;
 			}
 		}
-		//else
-			//petitition.route = config.error_file
+		
 	}
+	else if (file_exists(config.user + "/" + petition.route) == false)
+		petition.route = config.user + "/" + config.error_file;
 
 	std::cout << "protocol = \"" << petition.protocol << "\"" << std::endl;
 	std::cout << "type = " << types[petition.type] << std::endl;

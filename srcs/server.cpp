@@ -78,7 +78,7 @@ static void		response(int fd, struct Petition petition)
 {
 	std::stringstream	rsp;
 	std::stringstream	fileroute;
-	fileroute << "./" << petition.route;
+	fileroute << petition.route;
 	std::ifstream		file(fileroute.str().c_str());
 
 	fileroute.str("");
