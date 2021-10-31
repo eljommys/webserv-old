@@ -107,7 +107,7 @@ int	Server::exe()
 		}
 		else
 			std::cout << "Connected" << std::endl << std::endl;
-		
+
 		fcntl(connect_fd[0].fd, F_SETFL, fcntl(connect_fd[0].fd, F_GETFL, 0) | O_NONBLOCK);
 		if (!poll(connect_fd, CONNECT_NUM, 5000))
 		{

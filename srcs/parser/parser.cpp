@@ -7,6 +7,7 @@ void show(struct Config config)
 	for (std::vector<std::string>::iterator j = config.index.begin(); j < config.index.end(); j++)
 			std::cout << " '" << *j << "'";
 	std::cout << std::endl;
+	std::cout << "error '" << config.error_file << "'" << std::endl;
 	std::cout << "body_size '" << config.max_body_size << "'" << std::endl;
 	for (std::vector<struct V_server>::iterator i = config.servers.begin(); i < config.servers.end(); i++)
 	{
@@ -45,24 +46,22 @@ struct Petition	parse_petition(std::string buffer, struct Config config)
 	std::string		method = buffer.substr(0, buffer.find_first_of(' '));
 	for (petition.type = GET; method != types[petition.type] && petition.type < 3; petition.type++);
 
-	petition.route = buffer.substr(buffer.find_first_of(' ') + 1, buffer.find(" HTTP") - buffer.find_first_of(' ') - 1);
-	
-	if (petition.route == "/")
+	petition.route = config.user + buffer.substr(buffer.find_first_of(' ') + 1, buffer.find(" HTTP") - buffer.find_first_of(' ') - 1);
+
+	if (petition.route[petition.route.size() - 1] == '/')
 	{
-		int i;
-		for (i = 0; i < (int)config.index.size() ; i++)
+		for (int i = 0; i < (int)config.index.size(); i++)
 		{
-			std::string fileroute = config.user + "/" + config.index[i];
+			std::string fileroute = petition.route + config.index[i];
 			if (file_exists(fileroute) == true)
 			{
 				petition.route = fileroute;
 				break;
 			}
 		}
-		
 	}
-	else if (file_exists(config.user + "/" + petition.route) == false)
-		petition.route = config.user + "/" + config.error_file;
+	if (file_exists(petition.route) == false || petition.route[petition.route.size() - 1] == '/')
+		petition.route = config.user + "/" + config.error_file + "/" + "index.html";
 
 	std::cout << "protocol = \"" << petition.protocol << "\"" << std::endl;
 	std::cout << "type = " << types[petition.type] << std::endl;

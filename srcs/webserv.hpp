@@ -27,6 +27,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <poll.h>
+# include <filesystem>
 # include "parser/parser.hpp"
 
 # define	PORT	8080
@@ -42,6 +43,14 @@ struct Petition
 	int			type;
 	std::string	protocol;
 	std::string	route;
+};
+
+struct Response
+{
+	int			code;
+	std::string	route;
+	int			length;
+	std::string type;
 };
 
 struct Location
