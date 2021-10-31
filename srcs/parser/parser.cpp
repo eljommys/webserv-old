@@ -33,8 +33,8 @@ void show(struct Config config)
 }
 
 static bool file_exists(const std::string& name) {
-    std::ifstream f(name.c_str());
-    return f.good();
+	std::ifstream f(name.c_str());
+	return f.good();
 }
 
 struct Petition	parse_petition(std::string buffer, struct Config config)

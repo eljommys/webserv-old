@@ -77,19 +77,18 @@ int Server::prepare()
 static void		response(int fd, struct Petition petition)
 {
 	std::stringstream	rsp;
-	std::stringstream	fileroute;
-	fileroute << petition.route;
-	std::ifstream		file(fileroute.str().c_str());
+	std::stringstream	file_content;
+	std::ifstream		file(petition.route.c_str());
+	std::string			doctype =	petition.route.substr(petition.route.find_last_of('.') + 1,
+									petition.route.size() - petition.route.find_last_of('.') + 1);
 
-	fileroute.str("");
-	fileroute << file.rdbuf();
+	file_content << file.rdbuf();
 
 	rsp << petition.protocol << " 200 OK" << std::endl;
-	rsp << "Content-length: " << fileroute.str().size() << std::endl;
-	rsp << "Content-Type: text/html" << std::endl << std:: endl;
-	rsp << fileroute.str();
+	rsp << "Content-length: " << file_content.str().size() << std::endl;
+	rsp << "Content-Type: text/" << doctype << std::endl << std:: endl;
+	rsp << file_content.str();
 
-	//std::cout << rsp.str() << std::endl;
 	send(fd, rsp.str().c_str(), rsp.str().size(), 0);
 }
 
