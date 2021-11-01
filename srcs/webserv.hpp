@@ -43,6 +43,7 @@ struct Petition
 	int			type;
 	std::string	protocol;
 	std::string	route;
+	std::string	access;
 };
 
 struct Response

@@ -9,7 +9,8 @@ CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic
 SRC =	$(ROOT)webserv.cpp \
 		$(ROOT)server.cpp \
 		$(ROOT)parser/parser.cpp \
-		$(ROOT)parser/config.cpp
+		$(ROOT)parser/config.cpp \
+		$(ROOT)parser/petition.cpp
 
 OBJ =	$(SRC:.cpp=.o)
 

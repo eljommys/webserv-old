@@ -32,7 +32,7 @@ void show(struct Config config)
 	std::cout << std::endl;
 }
 
-static bool file_exists(const std::string& name) {
+/* static bool file_exists(const std::string& name) {
 	std::ifstream f(name.c_str());
 	return f.good();
 }
@@ -50,7 +50,8 @@ struct Petition	parse_petition(std::string buffer, struct Config config)
 
 	if (petition.route == config.user + "/")
 		petition.route = config.user + "/" + config.home;
-	if (petition.route[petition.route.size() - 1] == '/')
+		//petition.route[petition.route.size() - 1] == '/'
+	if (petition.route.find_last_of('.') == std::string::npos)
 	{
 		for (int i = 0; i < (int)config.index.size(); i++)
 		{
@@ -62,7 +63,7 @@ struct Petition	parse_petition(std::string buffer, struct Config config)
 			}
 		}
 	}
-	if (file_exists(petition.route) == false || petition.route[petition.route.size() - 1] == '/')
+	if (file_exists(petition.route) == false || petition.route.find_last_of('.') == std::string::npos)
 		petition.route = config.user + "/" + config.error_file + "/" + "index.html";
 
 	std::cout << "protocol = \"" << petition.protocol << "\"" << std::endl;
@@ -70,7 +71,7 @@ struct Petition	parse_petition(std::string buffer, struct Config config)
 	std::cout << "route = \"" << petition.route << "\"" << std::endl;
 
 	return (petition);
-}
+} */
 
 /* int main(void)
 {
