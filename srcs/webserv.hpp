@@ -41,6 +41,7 @@
 struct Petition
 {
 	int			type;
+	bool		is_first;
 	std::string	protocol;
 	std::string	route;
 	std::string	access;
