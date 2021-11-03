@@ -86,8 +86,8 @@ class Server
 		struct pollfd		connect_fd[CONNECT_NUM];
 		struct sockaddr_in	address;
 		int					addrlen;
-		struct Petition		petition;
 		struct Config		config;
+		struct Petition		petition;
 
 	public:
 		Server();
@@ -96,7 +96,8 @@ class Server
 		int	prepare();
 		int	exe();
 
-		const int			&getServer_fd();
-		const struct pollfd	&getConnect_fd(const int &);
-		const struct Config	&getConfig();
+		const int				&getServer_fd();
+		const struct pollfd		&getConnect_fd(const int &);
+		const struct Config		&getConfig();
+		const struct Petition	&getPetition();
 };

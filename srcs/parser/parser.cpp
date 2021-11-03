@@ -1,7 +1,8 @@
 #include "parser.hpp"
 
-void show(struct Config config)
+void show_config(struct Config config)
 {
+	std::cout << "=========================CONFIG===================" << std::endl;
 	std::cout << "user '" << config.user << "'" << std::endl;
 	std::cout << "index ";
 	for (std::vector<std::string>::iterator j = config.index.begin(); j < config.index.end(); j++)
@@ -29,7 +30,19 @@ void show(struct Config config)
 			std::cout << "\t\tRoot " << j->root << std::endl;
 		}
 	}
+	std::cout << "==================================================" << std::endl;
 	std::cout << std::endl;
+}
+
+void			show_petition(struct Petition petition)
+{
+	std::string		types[] = {"GET", "POST", "DELETE"};
+	
+	std::cout << "=====================Petition=====================" << std::endl;
+	std::cout << "protocol = \"" << petition.protocol << "\"" << std::endl;
+	std::cout << "type = " << types[petition.type] << std::endl;
+	std::cout << "route = \"" << petition.route << "\"" << std::endl;
+	std::cout << "==================================================" << std::endl;
 }
 
 /* static bool file_exists(const std::string& name) {

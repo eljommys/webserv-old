@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 	else if (argc == 2)
 		server.setConf(argv[1]);
 
-	show(server.getConfig());
+	show_config(server.getConfig());
 //	Only SININT (CTRL+C) can exit cleanly from the process
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);

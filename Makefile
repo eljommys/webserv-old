@@ -35,6 +35,3 @@ git: fclean
 	git add .
 	git commit -m "$(MSG)"
 	git push
-
-parser:
-	$(CXX) $(ROOT)parser/config.cpp $(ROOT)parser/parser.cpp $(ROOT)server.cpp -o parser

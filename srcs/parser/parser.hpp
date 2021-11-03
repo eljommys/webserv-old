@@ -16,4 +16,6 @@
 
 struct Petition	parse_petition(std::string, struct Config config);
 struct Config	parse_config(const std::string &);
-void show(struct Config config);
+
+void show_config(struct Config config);
+void show_petition(struct Petition petition);

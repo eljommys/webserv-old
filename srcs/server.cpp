@@ -116,10 +116,8 @@ int	Server::exe()
 
 //		Save client's petition in buffer and parsing it
 		recv(connect_fd[0].fd, buffer, 30000, 0);
-		std::cout << "=====================Petition=====================" << std::endl;
-		std::cout << (std::string)buffer << std::endl;
-		std::cout << "==================================================" << std::endl;
 		petition = parse_petition(buffer, config);
+		show_petition(petition);
 
 //		Sending server response
 		response(connect_fd[0].fd, petition);
@@ -131,17 +129,22 @@ int	Server::exe()
 
 //	GETTERS
 
-const int			&Server::getServer_fd()
+const int				&Server::getServer_fd()
 {
 	return this->server_fd;
 }
 
-const struct pollfd	&Server::getConnect_fd(const int &i)
+const struct pollfd		&Server::getConnect_fd(const int &i)
 {
 	return connect_fd[i];
 }
 
-const struct Config	&Server::getConfig()
+const struct Config		&Server::getConfig()
 {
 	return config;
+}
+
+const struct Petition	&Server::getPetition()
+{
+	return petition;
 }
