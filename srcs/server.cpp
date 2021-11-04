@@ -74,7 +74,7 @@ int Server::prepare()
 	return (EXIT_SUCCESS);
 }
 
-static void		response(int fd, struct Petition petition)
+static void		respond(int fd, struct Petition petition)
 {
 	std::stringstream	rsp;
 	std::stringstream	file_content;
@@ -87,8 +87,11 @@ static void		response(int fd, struct Petition petition)
 	rsp << petition.protocol << " 200 OK" << std::endl;
 	rsp << "Content-length: " << file_content.str().size() << std::endl;
 	rsp << "Content-Type: text/" << doctype << std::endl << std:: endl;
+	//rsp << "Content-Type: " << petition.accept << std::endl << std:: endl;
+	std::cout << rsp.str() << std::endl;
 	rsp << file_content.str();
 
+	//send(1, rsp.str().c_str(), rsp.str().size(), 0);
 	send(fd, rsp.str().c_str(), rsp.str().size(), 0);
 }
 
@@ -120,7 +123,7 @@ int	Server::exe()
 		show_petition(petition);
 
 //		Sending server response
-		response(connect_fd[0].fd, petition);
+		respond(connect_fd[0].fd, petition);
 		close(connect_fd[0].fd);
 	}
 	return (EXIT_SUCCESS);

@@ -69,15 +69,13 @@ struct Petition	parse_petition(std::string buffer, struct Config config)
 
 	petition.protocol = buffer.substr(buffer.find("HTTP"), buffer.find("\n") - buffer.find("HTTP") - 1);
 	petition.is_first = (get_value(buffer, "Cache-Control").size()) ? false : true;
+
 	std::string		types[] = {"GET", "POST", "DELETE"};
 	std::string		method = buffer.substr(0, buffer.find_first_of(' '));
 	for (petition.type = GET; method != types[petition.type] && petition.type < 3; petition.type++);
 
-	std::string route = buffer.substr(buffer.find_first_of(' ') + 1, buffer.find(" HTTP") - buffer.find_first_of(' ') - 1);
-	if (petition.is_first == true)				//====================AQUI ME HE QUEDADO
-		petition.route = config.user + route;
-	else
-
+	petition.route = config.user + buffer.substr(buffer.find_first_of(' ') + 1, buffer.find(" HTTP") - buffer.find_first_of(' ') - 1);
+	petition.accept = get_value(buffer, "Accept");
 
 	if (petition.route == config.user + "/")
 		petition.route = config.user + "/" + config.home;
