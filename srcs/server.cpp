@@ -88,7 +88,6 @@ static void		respond(int fd, struct Petition petition)
 	rsp << "Content-length: " << file_content.str().size() << std::endl;
 	rsp << "Content-Type: text/" << doctype << std::endl << std:: endl;
 	//rsp << "Content-Type: " << petition.accept << std::endl << std:: endl;
-	std::cout << rsp.str() << std::endl;
 	rsp << file_content.str();
 
 	//send(1, rsp.str().c_str(), rsp.str().size(), 0);

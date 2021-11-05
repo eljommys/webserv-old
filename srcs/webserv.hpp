@@ -27,7 +27,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <poll.h>
-# include <filesystem>
+# include <errno.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include "parser/parser.hpp"
 
 # define	PORT	8080
@@ -83,6 +85,7 @@ struct Config
 class Server
 {
 	private:
+		std::string			root;
 		int 				server_fd;
 		struct pollfd		connect_fd[CONNECT_NUM];
 		struct sockaddr_in	address;

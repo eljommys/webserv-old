@@ -48,10 +48,10 @@
 //	Accept-Encoding: gzip, deflate, br
 //	Accept-Language: en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7
 
-static bool file_exists(const std::string& name) {
+/* static bool file_exists(const std::string& name) {
 	std::ifstream f(name.c_str());
 	return f.good();
-}
+} */
 
 static std::string		get_value(const std::string &petition, std::string str)
 {
@@ -66,6 +66,7 @@ static std::string		get_value(const std::string &petition, std::string str)
 struct Petition	parse_petition(std::string buffer, struct Config config)
 {
 	struct Petition	petition;
+	struct stat		file_type;
 
 	petition.protocol = buffer.substr(buffer.find("HTTP"), buffer.find("\n") - buffer.find("HTTP") - 1);
 	petition.is_first = (get_value(buffer, "Cache-Control").size()) ? false : true;
@@ -79,21 +80,24 @@ struct Petition	parse_petition(std::string buffer, struct Config config)
 
 	if (petition.route == config.user + "/")
 		petition.route = config.user + "/" + config.home;
-		//petition.route[petition.route.size() - 1] == '/'
-	if (petition.route.find_last_of('.') == std::string::npos)
+	errno = 0;
+	stat(petition.route.c_str(), &file_type);
+	if (errno == ENOENT)
+		petition.route = config.user + "/" + config.error_file + "/" + "index.html";
+	else if (S_ISDIR(file_type.st_mode))
 	{
 		for (int i = 0; i < (int)config.index.size(); i++)
 		{
-			std::string fileroute = petition.route + config.index[i];
-			if (file_exists(fileroute) == true)
+			std::string fileroute = petition.route + "/" + config.index[i];
+			errno = 0;
+			stat(fileroute.c_str(), &file_type);
+			if (errno == 0)
 			{
 				petition.route = fileroute;
 				break;
 			}
 		}
 	}
-	if (file_exists(petition.route) == false || petition.route.find_last_of('.') == std::string::npos)
-		petition.route = config.user + "/" + config.error_file + "/" + "index.html";
 
 	return (petition);
 }
