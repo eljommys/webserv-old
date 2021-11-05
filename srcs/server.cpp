@@ -14,12 +14,13 @@
 
 Server::Server():addrlen(sizeof(address))
 {
+	char cwd[500];
 	for (int i = 0; i < CONNECT_NUM; i++)
 	{
 		connect_fd[i].events = 0;
 		connect_fd[i].events |= POLLIN;
 	}
-
+	root = getcwd(cwd, 500);
 	config = parse_config("webserv.conf");
 }
 
