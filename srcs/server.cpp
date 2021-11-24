@@ -117,6 +117,8 @@ int	Server::exe()
 			continue;
 		}
 
+		std::cout << buffer << std::endl;
+
 //		Save client's petition in buffer and parsing it
 		recv(connect_fd[0].fd, buffer, 30000, 0);
 		petition = parse_petition(buffer, config);
